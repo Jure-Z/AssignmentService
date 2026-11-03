@@ -65,6 +65,10 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
 }
 
+// Exception handling
+app.UseExceptionHandler();
+
+
 //API documentation
 if (app.Environment.IsDevelopment())
 {
@@ -99,6 +103,7 @@ app.MapHealthChecks("/health", new HealthCheckOptions
         await context.Response.WriteAsync(result);
     }
 });
+
 
 app.UseHttpsRedirection();
 

@@ -1,6 +1,8 @@
 ﻿using AssignmentService.Application.DTOs;
 using FluentValidation;
 
+namespace AssignmentService.Application.Validators;
+
 public class CreateAssignmentDtoValidator : AbstractValidator<CreateAssignmentDto>
 {
     public CreateAssignmentDtoValidator()

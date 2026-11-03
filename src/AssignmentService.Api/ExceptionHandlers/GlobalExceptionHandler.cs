@@ -22,6 +22,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             ArgumentException => (StatusCodes.Status400BadRequest, "Bad Request"),
             KeyNotFoundException => (StatusCodes.Status404NotFound, "Not Found"),
+            InvalidOperationException => (StatusCodes.Status400BadRequest, "Bad Request"),
             _ => (StatusCodes.Status500InternalServerError, "Internal Server Error")
         };
 
