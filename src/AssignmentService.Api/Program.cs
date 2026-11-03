@@ -7,6 +7,7 @@ using AssignmentService.Application.Validators;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ builder.Services.AddScoped<EvaluationService>();
 builder.Services.AddControllers();
 
 
+//API documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -49,6 +51,11 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpsertEvaluationDtoValidato
 builder.Services.AddFluentValidationAutoValidation();
 
 
+// Add health checks
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<AppDbContext>("database", failureStatus: Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Unhealthy);
+
+
 var app = builder.Build();
 
 // Database migration
@@ -72,6 +79,26 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = string.Empty;
 });
 
+// Health checks
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+        var result = System.Text.Json.JsonSerializer.Serialize(new
+        {
+            status = report.Status.ToString(),
+            checks = report.Entries.Select(e => new
+            {
+                name = e.Key,
+                status = e.Value.Status.ToString(),
+                exception = e.Value.Exception?.Message
+            }),
+            duration = report.TotalDuration
+        });
+        await context.Response.WriteAsync(result);
+    }
+});
 
 app.UseHttpsRedirection();
 
