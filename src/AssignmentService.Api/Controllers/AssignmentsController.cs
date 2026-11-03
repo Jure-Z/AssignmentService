@@ -16,6 +16,8 @@ public class AssignmentsController : ControllerBase
 
     // GET: api/Assignments
     [HttpGet]
+    [EndpointSummary("Pridobi seznam vseh nalog")]
+    [EndpointDescription("Vrne seznam vseh nalog v sistemu skupaj z njihovimi osnovnimi podatki, roki oddaje in maksimalnimi točkami.")]
     [ProducesResponseType(typeof(IEnumerable<AssignmentDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<AssignmentDto>>> GetAll()
     {
@@ -25,6 +27,8 @@ public class AssignmentsController : ControllerBase
 
     // GET: api/Assignments/{id}
     [HttpGet("{id:guid}")]
+    [EndpointSummary("Pridobi nalogo po ID-ju")]
+    [EndpointDescription("Vrne podrobne podatke posamezne naloge na podlagi njenega enoličnega GUID identifikatorja.")]
     [ProducesResponseType(typeof(AssignmentDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<AssignmentDto>> GetById(Guid id)
@@ -40,6 +44,8 @@ public class AssignmentsController : ControllerBase
 
     // POST: api/Assignments
     [HttpPost]
+    [EndpointSummary("Ustvari novo nalogo")]
+    [EndpointDescription("Ustvari novo nalogo z naslovom, opisom, rokom oddaje in maksimalnim številom točk.")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create([FromBody] CreateAssignmentDto dto)
@@ -50,6 +56,8 @@ public class AssignmentsController : ControllerBase
 
     // PUT: api/Assignments/{id}
     [HttpPut("{id:guid}")]
+    [EndpointSummary("Posodobi obstoječo nalogo")]
+    [EndpointDescription("Posodobi podatke obstoječe naloge (naslov, opis, rok, točke) glede na podani ID.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -66,6 +74,8 @@ public class AssignmentsController : ControllerBase
 
     // DELETE: api/Assignments/{id}
     [HttpDelete("{id:guid}")]
+    [EndpointSummary("Izbriši nalogo")]
+    [EndpointDescription("Izbriše obstoječo nalogo iz sistema, če ta obstaja.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id)

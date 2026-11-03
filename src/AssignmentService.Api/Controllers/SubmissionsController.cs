@@ -17,6 +17,8 @@ public class SubmissionsController : ControllerBase
 
     // GET: api/Submissions/{id}
     [HttpGet("{id:guid}")]
+    [EndpointSummary("Pridobi oddajo po ID-ju")]
+    [EndpointDescription("Vrne podrobnosti posamezne oddaje študenta, vključno z vsebino, statusom in povezano oceno.")]
     [ProducesResponseType(typeof(SubmissionDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<SubmissionDto>> GetById(Guid id)
@@ -32,6 +34,8 @@ public class SubmissionsController : ControllerBase
 
     // GET: api/Submissions/assignment/{assignmentId}
     [HttpGet("assignment/{assignmentId:guid}")]
+    [EndpointSummary("Pridobi oddaje za določeno nalogo")]
+    [EndpointDescription("Vrne seznam vseh oddaj, ki so bile oddane za specifično nalogo.")]
     [ProducesResponseType(typeof(IEnumerable<SubmissionDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<SubmissionDto>>> GetByAssignmentId(Guid assignmentId)
     {
@@ -41,6 +45,8 @@ public class SubmissionsController : ControllerBase
 
     // POST: api/Submissions
     [HttpPost]
+    [EndpointSummary("Ustvari nov osnutek oddaje")]
+    [EndpointDescription("Ustvari nov osnutek oddaje (Draft) za določenega študenta in nalogo.")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -52,6 +58,8 @@ public class SubmissionsController : ControllerBase
 
     // PUT: api/Submissions/{id}
     [HttpPut("{id:guid}")]
+    [EndpointSummary("Posodobi vsebino osnutka oddaje")]
+    [EndpointDescription("Omogoča urejanje in posodabljanje vsebine oddaje, dokler je ta še v statusu osnutka (Draft).")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -68,6 +76,8 @@ public class SubmissionsController : ControllerBase
 
     // POST: api/Submissions/{id}/submit
     [HttpPost("{id:guid}/submit")]
+    [EndpointSummary("Oddaj nalogo v pregled")]
+    [EndpointDescription("Zaklene osnutek oddaje in preveri rok oddaje. Status se spremeni v Submitted ali Late.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -84,6 +94,8 @@ public class SubmissionsController : ControllerBase
 
     // DELETE: api/Submissions/{id}
     [HttpDelete("{id:guid}")]
+    [EndpointSummary("Izbriši oddajo")]
+    [EndpointDescription("Izbriše obstoječo oddajo iz sistema, če pogoji to dopuščajo.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id)

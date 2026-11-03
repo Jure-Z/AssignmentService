@@ -17,6 +17,8 @@ public class EvaluationsController : ControllerBase
 
     // GET: api/submissions/{submissionId}/evaluation
     [HttpGet]
+    [EndpointSummary("Pridobi oceno oddaje")]
+    [EndpointDescription("Vrne oceno in povratne informacije za določeno oddajo.")]
     [ProducesResponseType(typeof(EvaluationDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<EvaluationDto>> GetBySubmission(Guid submissionId)
@@ -32,6 +34,8 @@ public class EvaluationsController : ControllerBase
 
     // POST / PUT (Upsert): api/submissions/{submissionId}/evaluation
     [HttpPost]
+    [EndpointSummary("Ustvari ali posodobi oceno (Upsert)")]
+    [EndpointDescription("Vpiše novo oceno ali posodobi obstoječo oceno za izbrano oddajo ter preveri mejne točke naloge.")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -43,6 +47,8 @@ public class EvaluationsController : ControllerBase
 
     // DELETE: api/submissions/{submissionId}/evaluation
     [HttpDelete]
+    [EndpointSummary("Izbriši oceno oddaje")]
+    [EndpointDescription("Izbriše obstoječo oceno, ki je bila pripeta določeni oddaji.")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid submissionId)

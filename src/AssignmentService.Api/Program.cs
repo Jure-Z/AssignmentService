@@ -22,7 +22,13 @@ builder.Services.AddScoped<IEvaluationRepository, EvaluationRepository>();
 builder.Services.AddScoped<EvaluationService>();
 
 builder.Services.AddControllers();
+
+
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "Assignment Service API", Version = "v1", Description = "Mikrostoritev za oddajo in ocenjevanje nalog" });
+});
 builder.Services.AddOpenApi();
 
 
@@ -52,10 +58,20 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
 }
 
+//API documentation
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Assignment Service API v1");
+
+    c.RoutePrefix = string.Empty;
+});
+
 
 app.UseHttpsRedirection();
 
