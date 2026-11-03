@@ -9,4 +9,8 @@
     <Project Path="src/AssignmentService.Domain/AssignmentService.Domain.csproj" />
     <Project Path="src/AssignmentService.Infrastructure/AssignmentService.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AssignmentService.IntegrationTests/AssignmentService.IntegrationTests.csproj" />
+    <Project Path="tests/AssignmentService.UnitTests/AssignmentService.UnitTests.csproj" />
+  </Folder>
 </Solution>

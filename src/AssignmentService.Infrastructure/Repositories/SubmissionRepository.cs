@@ -17,6 +17,7 @@ public class SubmissionRepository : ISubmissionRepository
     public async Task<Submission?> GetByIdAsync(Guid id)
     {
         return await _context.Submissions
+            .Include(s => s.Evaluation)
             .FirstOrDefaultAsync(s => s.Id == id);
     }
 
@@ -31,6 +32,7 @@ public class SubmissionRepository : ISubmissionRepository
     public async Task<IEnumerable<Submission>> GetByAssignmentIdAsync(Guid assignmentId)
     {
         return await _context.Submissions
+            .Include(s => s.Evaluation)
             .Where(s => s.AssignmentId == assignmentId)
             .ToListAsync();
     }
